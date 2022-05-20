@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Biryani:wght@300&family=Fira+Sans:wght@600&family=Oleo+Script&display=swap");
+body {
+  background: rgb(205, 42, 178);
+  background: linear-gradient(319deg, rgb(205, 42, 178) 0%, rgb(156, 78, 172) 58%);
+  min-height: 100vh;
+}
+
+input {
+  border: none;
+  border-radius: 17px;
+  padding: 1%;
+  background-color: rgb(255, 245, 238);
+}
+
+button {
+  background-color: rgba(255, 245, 238, 0.6);
+  border: none;
+  border-radius: 17px;
+  padding: 1% 5%;
+}
+
+h1 {
+  font-family: "Oleo Script", cursive;
+  color: rgb(255, 245, 238);
+}
+
+p {
+  font-family: "Biryani", sans-serif;
+  color: rgb(255, 245, 238);
+}

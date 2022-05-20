@@ -1,0 +1,29 @@
+body {
+    background: rgb(205, 42, 178);
+    background: linear-gradient(319deg, rgba(205, 42, 178, 1) 0%, rgba(156, 78, 172, 1) 58%);
+    min-height: 100vh;
+}
+
+input {
+    border: none;
+    border-radius: 17px;
+    padding: 1%;
+    background-color: $eggshell;
+}
+
+button {
+    background-color: $eggshellTransparent;
+    border: none;
+    border-radius: 17px;
+    padding: 1% 5%;
+}
+
+h1 {
+    font-family: $titleFont;
+    color: $eggshell;
+}
+
+p {
+    font-family: $bodyFont;
+    color: $eggshell;
+}
