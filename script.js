@@ -22,22 +22,24 @@ cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
 
     surpriseMeBtn.addEventListener('click', function() {
+        //query for the UL
+        const ulElement = document.querySelector('ul');
+
+        //clear the UL before adding a new cocktail
+        ulElement.innerHTML = '';
+
         fetch(cocktailsApp.apiURLRandom)
         .then((response) => { return response.json(); })
         .then((randomDrinkObject) => {
             console.log(randomDrinkObject);
-            //strDrink
-            //strIngredient 1, 2, 3...
-                //the value that matches strIngredient[1], match strMeasure[1]
-            // strInstructions
 
+            // adding names for all individual items from object we can grab immediately for the final array
             const drinkName = randomDrinkObject.drinks[0].strDrink
-            console.log(drinkName);
             const drinkInstructions = randomDrinkObject.drinks[0].strInstructions
-            console.log(drinkInstructions);
             const drinkImage = randomDrinkObject.drinks[0].strDrinkThumb
-            console.log(drinkImage)
-            const resultsList = document.querySelector(".results");
+            const resultsList = document.querySelector(".results")
+
+            console.log(drinkName);
 
             const drinkObject = randomDrinkObject.drinks[0]
             console.log(drinkObject);
@@ -58,15 +60,10 @@ cocktailsApp.displayRandomCocktail = ( ) => {
                     const measurement = `strMeasure` + ingredientKey;
 
                     // get the value of that measurement (ex. 2 oz)
-                    const measurementValue = drinkObject[measurement];
+                    const valueOfMeasurement = drinkObject[measurement];
 
-                    // function hasMeasurement(valueOfMeasurement) {
-                    //     if (valueOfMeasurement === true) {
-                    //         return valueOfMeasurement
-                    //     }
-                    // }
 
-                    const finalValue = `${measurementValue} ${value}`;
+                    const finalValue = ` ${ valueOfMeasurement} ${value}`;
                     ingredientsAndMeasurementList.push(finalValue);
 
                 }
@@ -80,22 +77,35 @@ cocktailsApp.displayRandomCocktail = ( ) => {
                 <img src = "${drinkImage}" alt="Cocktail photo of ${drinkName}" >
                 <h2>${drinkName}</h2>
                 <p>${ingredientsAndMeasurementList}</p>
+                <p>${drinkInstructions}</p>
              `;
 
             resultsList.append(liElement);
 
 
-            //element.slice (13) -- so long as we don't include an end, it should give us what's left
+            
+        })
+    })
+};
+
+
+cocktailsApp.init ();
+
+//======================================================
+
+// OLD CONTENT (GOOD IDEAS)
+
+//element.slice (13) -- so long as we don't include an end, it should give us what's left
 
             // with null values removed
-            const drinkIngredientsObject = {}
-            const entries = Object.entries(drinkObject)
-            for (const [key,value] of entries) {
-                if(value) {
-                    drinkIngredientsObject[key] = value
-                }
-            }
-            console.log(drinkIngredientsObject)
+            // const drinkIngredientsObject = {}
+            // const entries = Object.entries(drinkObject)
+            // for (const [key,value] of entries) {
+            //     if(value) {
+            //         drinkIngredientsObject[key] = value
+            //     }
+            // }
+            // console.log(drinkIngredientsObject)
 
 
             // const drinkIngredientsArray = object.entries(drinkIngredients)
@@ -111,16 +121,6 @@ cocktailsApp.displayRandomCocktail = ( ) => {
             // drinkIngredients.filter((ingredient) => {
             //     if(ingredient) {return true;}
             // })
-        })
-    })
-};
-
-
-cocktailsApp.init ();
-
-//======================================================
-
-// RANDOM
 
 
 
