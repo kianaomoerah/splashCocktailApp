@@ -30,6 +30,40 @@ cocktailsApp.displayRandomCocktail = ( ) => {
             //strIngredient 1, 2, 3...
                 //the value that matches strIngredient[1], match strMeasure[1]
             // strInstructions
+
+            const drinkName = randomDrinkObject.drinks[0].strDrink
+            console.log(drinkName);
+            const drinkInstructions = randomDrinkObject.drinks[0].strInstructions
+            console.log(drinkInstructions);
+            const drinkImage = randomDrinkObject.drinks[0].strDrinkThumb
+            console.log(drinkImage)
+
+            const drinkIngredients = randomDrinkObject.drinks[0]
+            console.log(randomDrinkObject.drinks[0]);
+
+            const drinkIngredientsObject = {}
+            const entries = Object.entries(drinkIngredients)
+            for (const [key,value] of entries) {
+                if(value) {
+                    drinkIngredientsObject[key] = value
+                }
+            }
+            console.log(drinkIngredientsObject)
+
+
+            // const drinkIngredientsArray = object.entries(drinkIngredients)
+            // console.log(drinkIngredientsArray);
+
+            // const drinkIngredientsArray = Object.keys(drinkIngredients).filter((key) => key.includes("strIngredient")).reduce((obj, key) => {
+            //     return Object.assign(obj, {
+            //         [key]: drinkIngredients[key]
+            //     });
+            // });
+            // console.log(drinkIngredientsArray);
+            
+            // drinkIngredients.filter((ingredient) => {
+            //     if(ingredient) {return true;}
+            // })
         })
     })
 };
