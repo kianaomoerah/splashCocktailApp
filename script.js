@@ -2,11 +2,12 @@
 //Create object to house app 
 const cocktailsApp = {};
 
-//save relevant API information
+//save relevant API information  
+
 cocktailsApp.apiURLRandom = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-cocktailsApp.apiDrinkIdList = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?";
+cocktailsApp.apiDrinkIdList = "https://www.thecocktaildb.com/api/json/v1/1/filter.php";
 // should be ex. i=vodka
-cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?"; // should be ex. i=11007
+cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?"; // should be ex. i=11007 
 
 
 //Query DOM for inputs -- may need to move them down
@@ -17,6 +18,8 @@ const form = document.querySelector('form');
 cocktailsApp.init = () => {
     cocktailsApp.displayRandomCocktail();
 };
+
+
 
 cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
@@ -62,9 +65,15 @@ cocktailsApp.displayRandomCocktail = ( ) => {
                     // get the value of that measurement (ex. 2 oz)
                     const valueOfMeasurement = drinkObject[measurement];
 
+                    // Check if there is a measurement value and add it if there is one
+                    if (valueOfMeasurement) {
+                        const finalValue = ` ${valueOfMeasurement} ${value}`;
+                        ingredientsAndMeasurementList.push(finalValue);
+                    } else {
+                        const finalValue = ` ${value}`;
+                        ingredientsAndMeasurementList.push(finalValue);
+                    }
 
-                    const finalValue = ` ${ valueOfMeasurement} ${value}`;
-                    ingredientsAndMeasurementList.push(finalValue);
 
                 }
             }
