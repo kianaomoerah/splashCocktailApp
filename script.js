@@ -17,9 +17,63 @@ const form = document.querySelector('form');
 
 cocktailsApp.init = () => {
     cocktailsApp.displayRandomCocktail();
+    cocktailsApp.displaySearchResults();
 };
 
+//TESTING adding search parameters ================================
+// in tests online, the API doesn't seem to care what is capitalized or not
 
+cocktailsApp.displaySearchResults = function () {
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const urlID = new URL(cocktailsApp.apiDrinkIdList);
+        const urlDetails = cocktailsApp.apiDrinkDetails;
+
+
+        const inputElement = document.getElementById('spiritChoice');
+        if (inputElement.value) {
+            urlID.search = new URLSearchParams({
+                i: inputElement.value,
+            });
+            console.log(urlID)
+
+            fetch(urlID)
+                .then(results => {
+                    return results.json();
+                }).then(data => {
+                    console.log(data);
+                    cocktailsApp.displayDrinkDetails(data);
+                })
+
+        } else {
+            throw new Error("Please enter a valid spirit")
+        }
+
+    })
+
+
+}
+
+//create function that will 
+// take the ID of the drink
+// fetch the details 
+// display the final result of 10 options
+
+cocktailsApp.displayDrinkDetails = function (drinksData) {
+    //getting the drinks array
+    let drinksArray = drinksData.drinks;
+    console.log(drinksArray);
+
+    // take the ID of the drink
+    drinksArray.forEach( function(drink) {
+        console.log(drink.idDrink);
+    });
+}
+
+// New function
+// fetch the details of the array
+
+//END TESTING adding search parameters ================================
 
 cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
