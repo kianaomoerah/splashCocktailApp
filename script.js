@@ -33,13 +33,11 @@ cocktailsApp.displaySearchResults = function () {
             urlSpirit.search = new URLSearchParams({
                 i: inputElement.value,
             });
-            console.log(urlSpirit)
 
             fetch(urlSpirit)
                 .then(results => {
                     return results.json();
                 }).then(data => {
-                    console.log(data);
                     cocktailsApp.displayDrinkDetails(data);
                 })
 
@@ -99,13 +97,8 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
     const drinkInstructions = cocktailObject.drinks[0].strInstructions
     const drinkImage = cocktailObject.drinks[0].strDrinkThumb
     const resultsList = document.querySelector(".results")
-
-    console.log(drinkName);
-
     const drinkObject = cocktailObject.drinks[0]
-    console.log(drinkObject);
-
-
+  
     //for storing the ingredients and measurements list
     const ingredientsAndMeasurementList = [];
 
@@ -115,7 +108,6 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
 
             //save key number in variable
             const ingredientKey = key.slice(13);
-            console.log(ingredientKey);
 
             //get back strMeasurement[number] to match ingredient
             const measurement = `strMeasure` + ingredientKey;
@@ -132,10 +124,8 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
                 ingredientsAndMeasurementList.push(finalValue);
             }
 
-
                 }
             }
-            console.log(ingredientsAndMeasurementList);
             //use the DOM to create an element to create a list
             const liElement = document.createElement('li');
 
@@ -171,63 +161,6 @@ cocktailsApp.displayRandomCocktail = ( ) => {
         .then((response) => { return response.json(); })
         .then((randomDrinkObject) => {
         cocktailsApp.getDrinkDetails(randomDrinkObject);
-
-            // // adding names for all individual items from object we can grab immediately for the final array
-            // const drinkName = randomDrinkObject.drinks[0].strDrink
-            // const drinkInstructions = randomDrinkObject.drinks[0].strInstructions
-            // const drinkImage = randomDrinkObject.drinks[0].strDrinkThumb
-            // const resultsList = document.querySelector(".results")
-
-            // console.log(drinkName);
-
-            // const drinkObject = randomDrinkObject.drinks[0]
-            // console.log(drinkObject);
-
-
-            // //for storing the ingredients and measurements list
-            // const ingredientsAndMeasurementList = [];
-
-            // // isolate strIngredient items in the object that have content & matches them with their measurements
-            // for (let [key, value] of Object.entries(drinkObject)) {
-            //     if ( key.includes("strIngredient") && value ) {
-
-            //         //save key number in variable
-            //         const ingredientKey = key.slice(13);
-            //         console.log(ingredientKey);
-
-            //         //get back strMeasurement[number] to match ingredient
-            //         const measurement = `strMeasure` + ingredientKey;
-
-            //         // get the value of that measurement (ex. 2 oz)
-            //         const valueOfMeasurement = drinkObject[measurement];
-
-            //         // Check if there is a measurement value and add it if there is one
-            //         if (valueOfMeasurement) {
-            //             const finalValue = ` ${valueOfMeasurement} ${value}`;
-            //             ingredientsAndMeasurementList.push(finalValue);
-            //         } else {
-            //             const finalValue = ` ${value}`;
-            //             ingredientsAndMeasurementList.push(finalValue);
-            //         }
-
-
-            //     }
-            // }
-            // console.log(ingredientsAndMeasurementList);
-            // //use the DOM to create an element to create a list
-            // const liElement = document.createElement('li');
-
-            // // creating a template literal that takes the number from the key and appends it on to the end of the strMeasurement variable to dynamically pull the measurement result
-            // liElement.innerHTML = `
-            //     <img src = "${drinkImage}" alt="Cocktail photo of ${drinkName}" >
-            //     <h2>${drinkName}</h2>
-            //     <p>${ingredientsAndMeasurementList}</p>
-            //     <p>${drinkInstructions}</p>
-            //  `;
-
-            // resultsList.append(liElement);
-
-
             
         })
     })
