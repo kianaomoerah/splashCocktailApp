@@ -13,47 +13,60 @@ cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.p
 //Query DOM for inputs -- may need to move them down
 const form = document.querySelector('form');
 
-// console.log(form, surpriseMeBtn);
 
 cocktailsApp.init = () => {
     cocktailsApp.displayRandomCocktail();
     cocktailsApp.displaySearchResults();
 };
 
-//TESTING adding search parameters ================================
-// in tests online, the API doesn't seem to care what is capitalized or not
-
 cocktailsApp.displaySearchResults = function () {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
         const urlSpirit = new URL(cocktailsApp.apiDrinkIdList);
-
         const inputElement = document.getElementById('spiritChoice');
-        if (inputElement.value) {
-            urlSpirit.search = new URLSearchParams({
-                i: inputElement.value,
-            });
-
-            fetch(urlSpirit)
-                .then(results => {
-                    return results.json();
-                }).then(data => {
-                    cocktailsApp.displayDrinkDetails(data);
-                })
-
-        } else {
-            throw new Error("Please enter a valid spirit")
-        }
-
+        urlSpirit.search = new URLSearchParams({
+            i: inputElement.value,
+        });
+        
+        fetch(urlSpirit)
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error('Other developers see this');
+                }
+            })
+            .then((jsonData) => {
+                cocktailsApp.displayDrinkDetails(jsonData);
+            })
+            .catch((err) => {
+                cocktailsApp.drinkSearchError(err);
+                // put content for user- function for errors
+            })
     })
-
 
 }
 
-//create function that will 
-// take the ID of the drink
-// fetch the details 
-// display the final result of 10 options
+cocktailsApp.drinkSearchError = function(error) {
+    // revisit making this a seperate function:
+    //query for the UL
+    const ulElement = document.querySelector('ul');
+
+    //clear the UL before adding a new cocktail
+    ulElement.innerHTML = '';
+
+    //use the DOM to create an element to create a list
+    const liElement = document.createElement('li');
+
+    // creating a template literal that creates a simple error message
+    liElement.innerHTML = `
+                <h2>'No Drinks Found!'</h2>
+                <p>Please try entering another spirit </p>
+            `;
+
+    ulElement.append(liElement);
+
+}
 
 cocktailsApp.displayDrinkDetails = function (drinksData) {
 
@@ -66,13 +79,11 @@ cocktailsApp.displayDrinkDetails = function (drinksData) {
 
     //getting the drinks array
     let drinksArray = drinksData.drinks;
-    // console.log(drinksArray);
 
     // take the ID of the drink
     drinksArray.forEach( function(drink) {
         const drinkId = drink.idDrink
 
-        // console.log(drinkId);
         const urlDetails = cocktailsApp.apiDrinkDetails;
     
         const urlId = new URL (urlDetails)
@@ -80,7 +91,6 @@ cocktailsApp.displayDrinkDetails = function (drinksData) {
         urlId.search = new URLSearchParams({
             i: drinkId
         });
-        // console.log(urlId)
         
         fetch(urlId)
             .then(results => {
@@ -92,11 +102,11 @@ cocktailsApp.displayDrinkDetails = function (drinksData) {
 }
 
 cocktailsApp.getDrinkDetails = (cocktailObject) => {
-
+    const ulElement = document.querySelector('ul');
     const drinkName = cocktailObject.drinks[0].strDrink
     const drinkInstructions = cocktailObject.drinks[0].strInstructions
     const drinkImage = cocktailObject.drinks[0].strDrinkThumb
-    const resultsList = document.querySelector(".results")
+    
     const drinkObject = cocktailObject.drinks[0]
   
     //for storing the ingredients and measurements list
@@ -137,14 +147,10 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
                 <p>${drinkInstructions}</p>
              `;
 
-            resultsList.append(liElement);
+            ulElement.append(liElement);
 
 }
 
-// New function
-// fetch the details of the array
-
-//END TESTING adding search parameters ================================
 
 cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
