@@ -19,6 +19,7 @@ cocktailsApp.init = () => {
     cocktailsApp.displaySearchResults();
 };
 
+// getting the spirit search results ID's - these will then be passed to the displayDrinkDetails function to get the details of each drink
 cocktailsApp.displaySearchResults = function () {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -37,16 +38,18 @@ cocktailsApp.displaySearchResults = function () {
                 }
             })
             .then((jsonData) => {
-                cocktailsApp.displayDrinkDetails(jsonData);
+                // cocktailsApp.displayDrinkDetails(jsonData);
+                // =========== CRUICAL - COMMENTED THIS OUT UNTIL check10 complete
+                cocktailsApp.check10(jsonData);
             })
             .catch((err) => {
                 cocktailsApp.drinkSearchError(err);
-                // put content for user- function for errors
             })
     })
 
 }
 
+// Error function to run any time someone puts an invalid query in the input of the search
 cocktailsApp.drinkSearchError = function(error) {
     // revisit making this a seperate function:
     //query for the UL
@@ -58,7 +61,7 @@ cocktailsApp.drinkSearchError = function(error) {
     //use the DOM to create an element to create a list
     const liElement = document.createElement('li');
 
-    // creating a template literal that creates a simple error message
+    // creating a template literal for a simple error message
     liElement.innerHTML = `
                 <h2>'No Drinks Found!'</h2>
                 <p>Please try entering another spirit </p>
@@ -68,6 +71,40 @@ cocktailsApp.drinkSearchError = function(error) {
 
 }
 
+// Using the first API, have a maximum of 10 resuls
+    // Check if there are more than 10
+    // if there are less than 10
+    // pass the API results into the detDrinkDetails
+    // if there are more than 10
+    // choose 10 of those results
+    // randomly pick those results
+
+cocktailsApp.check10 = function (drinks) {
+
+    // check if there are more than 10 
+        // CURRENTLY NOT WORKING - need to console.log the array and see what needs to be counted to isolate the correct amount
+    if (drinks > 10) {
+        console.log('more than 10 drinks')
+    } else {
+        console.log('less than 10 drinks')
+    }
+
+    // filtering if there are more than 10 drinks -- need to move into if statement
+    // let arrayDrinks;
+    // let count = 1;
+    // drinks.filter( function(drink) {
+    //     if (count < 10) {
+    //         count++;
+    //         // need to pass it to new array
+    //         return true;
+    //     }
+    // } )
+}
+
+// Taking the 'drinksData' ID list from the first fetch, to:
+    // create individual new links using the base API + the IDs
+    // then fetching the information from those newly created links for the individual drink details information
+    // passing the individual drink details information into the next function for isolating and appending the information we want to display
 cocktailsApp.displayDrinkDetails = function (drinksData) {
 
     // revisit making this a seperate function:
@@ -97,10 +134,15 @@ cocktailsApp.displayDrinkDetails = function (drinksData) {
                 return results.json();
             }).then(data => {
                 cocktailsApp.getDrinkDetails(data);
+                
         })
     });
 }
 
+
+
+
+// Getting the details of each individual drink from the second API and displaying the name, image, and recipe
 cocktailsApp.getDrinkDetails = (cocktailObject) => {
     const ulElement = document.querySelector('ul');
     const drinkName = cocktailObject.drinks[0].strDrink
@@ -145,13 +187,16 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
                 <h2>${drinkName}</h2>
                 <p>${ingredientsAndMeasurementList}</p>
                 <p>${drinkInstructions}</p>
-             `;
+            `;
 
             ulElement.append(liElement);
 
 }
 
 
+
+
+// Listening for a click on the 'surprise me' button in order to fetch a random drink from the API
 cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
 
