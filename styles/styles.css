@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Biryani:wght@300&family=Fira+Sans:wght@600&family=Oleo+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Biryani:wght@300&family=Fira+Sans&family=Lora:ital@1&family=Oleo+Script&display=swap");
 html {
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
@@ -239,6 +239,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: 125%;
 }
 
 main {
@@ -266,9 +267,10 @@ main {
 input {
   border: none;
   border-radius: 17px;
-  padding: 1%;
+  padding-left: 2%;
   background-color: rgb(255, 245, 238);
   width: 400px;
+  font-family: "Biryani", sans-serif;
 }
 input::-webkit-input-placeholder {
   font-family: "Biryani", sans-serif;
@@ -302,14 +304,25 @@ button {
   border-radius: 17px;
   padding: 1% 5%;
   color: #4B0082;
+  font-family: "Biryani", sans-serif;
 }
 
 h1 {
-  animation: neonAnim 2s alternate-reverse infinite;
   font-family: "Oleo Script", cursive;
   color: rgb(255, 245, 238);
-  font-size: 48px;
+  font-size: 2.4rem;
   text-align: center;
+  text-transform: uppercase;
+  text-shadow: #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
+  padding-top: 10%;
+}
+
+h2 {
+  color: rgb(255, 245, 238);
+  font-size: 1.9rem;
+  text-align: center;
+  font-family: "Fira Sans", sans-serif;
+  animation: neonAnim 2s alternate-reverse infinite;
 }
 @-webkit-keyframes neonAnim {
   from {
@@ -331,6 +344,38 @@ h1 {
 p {
   font-family: "Biryani", sans-serif;
   color: rgb(255, 245, 238);
+  font-size: 1rem;
+}
+
+.submission {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.submission p {
+  font-size: 0.8rem;
+}
+.submission form {
+  margin: 1% 0 5% 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.submission form button {
+  margin-left: 2%;
+}
+.submission .surpriseMeBtn {
+  margin: 1% 0 5% 0;
+  padding: 2%;
 }
 
 footer {
@@ -342,6 +387,7 @@ footer p {
   margin: 0;
   padding: 10px 0;
   text-align: center;
+  font-size: 0.6rem;
 }
 footer a {
   color: #a865c9;

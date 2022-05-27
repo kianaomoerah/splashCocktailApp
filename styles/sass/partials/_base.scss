@@ -1,5 +1,7 @@
 $eggshell: rgb(255, 245, 238);
 $eggshellTransparent: rgba(255, 245, 238, 0.6);
+$darkText: #4B0082;
+$lightText: #a865c9;
 
 html, 
 body {
@@ -8,6 +10,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    font-size: 125%;
 }
 
 main {
@@ -28,9 +31,10 @@ main {
 input {
     border: none;
     border-radius: 17px;
-    padding: 1%;
+    padding-left: 2%;
     background-color: $eggshell;
     width: 400px;
+    font-family: $bodyFont;
 
         &::placeholder {
             font-family: $bodyFont;
@@ -44,15 +48,28 @@ button {
     border: none;
     border-radius: 17px;
     padding: 1% 5%;
-    color: #4B0082;
+    color: $darkText;
+    font-family: $bodyFont;
 }
 
 h1 {
-    animation: neonAnim 2s alternate-reverse infinite;
     font-family: $titleFont;
     color: $eggshell;
-    font-size: 48px;
+    font-size: 2.4rem;
     text-align: center;
+    text-transform: uppercase;
+    text-shadow: #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
+    padding-top: 10%;
+
+}
+
+h2 {
+    color: $eggshell;
+    font-size: 1.9rem;
+    text-align: center;
+    font-family: $headingFont;
+
+    animation: neonAnim 2s alternate-reverse infinite;
 
         @keyframes neonAnim {
                 from {
@@ -74,20 +91,53 @@ h1 {
 p {
     font-family: $bodyFont;
     color: $eggshell;
+    font-size: 1rem;
 }
 
+
+// =============
+// Main Form & Instructions
+
+.submission {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: .8rem;
+
+    p {
+        font-size: .8rem;
+    }
+
+    form {
+        margin: 1% 0 5% 0;
+        display:flex;
+        justify-content: center;
+
+        button {
+            margin-left: 2%;
+        }
+    }
+
+    .surpriseMeBtn {
+        margin: 1% 0 5% 0;
+        padding: 2%;
+    }
+}
+
+
 footer {
-    background-color: #4B0082;
+    background-color: $darkText;
     flex-shrink: 0;
 
     p {
         margin: 0;
         padding: 10px 0;
         text-align: center;
+        font-size: 0.6rem;
     }
 
     a {
-            color: #a865c9
+            color: $lightText;
         }
 }
 

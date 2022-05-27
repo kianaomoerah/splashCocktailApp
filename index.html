@@ -11,24 +11,25 @@
 <body>
     
     <header>
-        <h1>Cocktail Generator App</h1>
+        <h1>Sip Me Baby One More Time</h1>
+        <h2>Cocktail Generator</h2>
     </header>
 
     <main>
-        <section class="wrapper">
-            <p>Search for any cocktail recipe by your chose of spirit!</p>
+        <section class=" submission wrapper">
+            <p>Search for any cocktail recipe by your choice of spirit!</p>
 
             <form action="#" class="recipeForm" name="recipeForm">
+                
+                <label class= "sr-only" for="spiritType">Enter your choice of spirit</label>
+                <input type="text" id="spiritChoice" name="spiritChoice" placeholder="Enter your choice of spirit">
 
-            <label class= "sr-only" for="spiritType">Enter your choice of spirit</label>
-            <input type="text" id="spiritChoice" name="spiritChoice" placeholder="Enter your choice of spirit">
-
-            <button type="submit">Submit</button>
+                <button type="submit">Submit</button>
 
             </form>
     
             <p>... OR get a random cocktail generated instantly!</p>
-            <button id = "surpriseMeBtn">Mix It Up!🍸</button>
+            <button class = "surpriseMeBtn" id = "surpriseMeBtn">Mix It Up!🍸</button>
         </section>
 
         <section class="wrapper">
