@@ -240,6 +240,8 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   font-size: 125%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 main {
@@ -262,49 +264,6 @@ main {
   width: 85%;
   max-width: 1080px;
   margin: 0 auto;
-}
-
-input {
-  border: none;
-  border-radius: 17px;
-  padding-left: 2%;
-  background-color: rgb(255, 245, 238);
-  width: 400px;
-  font-family: "Biryani", sans-serif;
-}
-input::-webkit-input-placeholder {
-  font-family: "Biryani", sans-serif;
-  color: #a865c9;
-  opacity: 0.8;
-}
-input::-moz-placeholder {
-  font-family: "Biryani", sans-serif;
-  color: #a865c9;
-  opacity: 0.8;
-}
-input:-ms-input-placeholder {
-  font-family: "Biryani", sans-serif;
-  color: #a865c9;
-  opacity: 0.8;
-}
-input::-ms-input-placeholder {
-  font-family: "Biryani", sans-serif;
-  color: #a865c9;
-  opacity: 0.8;
-}
-input::placeholder {
-  font-family: "Biryani", sans-serif;
-  color: #a865c9;
-  opacity: 0.8;
-}
-
-button {
-  background-color: rgba(255, 245, 238, 0.6);
-  border: none;
-  border-radius: 17px;
-  padding: 1% 5%;
-  color: #4B0082;
-  font-family: "Biryani", sans-serif;
 }
 
 h1 {
@@ -375,7 +334,64 @@ p {
 }
 .submission .surpriseMeBtn {
   margin: 1% 0 5% 0;
-  padding: 2%;
+  padding: 1%;
+}
+
+input {
+  border: none;
+  border-radius: 17px;
+  padding-left: 2%;
+  background-color: rgb(255, 245, 238);
+  width: 400px;
+  font-family: "Biryani", sans-serif;
+}
+input::-webkit-input-placeholder {
+  font-family: "Biryani", sans-serif;
+  color: #a865c9;
+  opacity: 0.8;
+}
+input::-moz-placeholder {
+  font-family: "Biryani", sans-serif;
+  color: #a865c9;
+  opacity: 0.8;
+}
+input:-ms-input-placeholder {
+  font-family: "Biryani", sans-serif;
+  color: #a865c9;
+  opacity: 0.8;
+}
+input::-ms-input-placeholder {
+  font-family: "Biryani", sans-serif;
+  color: #a865c9;
+  opacity: 0.8;
+}
+input::placeholder {
+  font-family: "Biryani", sans-serif;
+  color: #a865c9;
+  opacity: 0.8;
+}
+
+button {
+  background-color: rgba(255, 245, 238, 0.6);
+  border: none;
+  border-radius: 17px;
+  padding: 1% 5%;
+  color: #4B0082;
+  font-family: "Biryani", sans-serif;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul p {
+  font-size: 0.8rem;
+}
+
+h3 {
+  font-family: "Lora", serif;
+  color: rgb(255, 245, 238);
 }
 
 footer {
@@ -391,4 +407,11 @@ footer p {
 }
 footer a {
   color: #a865c9;
+}
+
+@media (max-width: 507px) {
+  .submission .surpriseMeBtn {
+    margin: 1% 0 5% 0;
+    padding: 3%;
+  }
 }

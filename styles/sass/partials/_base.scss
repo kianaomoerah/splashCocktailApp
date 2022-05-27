@@ -11,6 +11,8 @@ body {
     display: flex;
     flex-direction: column;
     font-size: 125%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 main {
@@ -26,30 +28,6 @@ main {
     max-width: 1080px;
     margin: 0 auto;
     
-}
-
-input {
-    border: none;
-    border-radius: 17px;
-    padding-left: 2%;
-    background-color: $eggshell;
-    width: 400px;
-    font-family: $bodyFont;
-
-        &::placeholder {
-            font-family: $bodyFont;
-            color: #a865c9;
-            opacity: 0.8;
-        }
-}
-
-button {
-    background-color: $eggshellTransparent;
-    border: none;
-    border-radius: 17px;
-    padding: 1% 5%;
-    color: $darkText;
-    font-family: $bodyFont;
 }
 
 h1 {
@@ -95,7 +73,7 @@ p {
 }
 
 
-// =============
+// ========================
 // Main Form & Instructions
 
 .submission {
@@ -120,9 +98,62 @@ p {
 
     .surpriseMeBtn {
         margin: 1% 0 5% 0;
-        padding: 2%;
+        padding: 1%;
     }
 }
+
+input {
+    border: none;
+    border-radius: 17px;
+    padding-left: 2%;
+    background-color: $eggshell;
+    width: 400px;
+    font-family: $bodyFont;
+
+    &::placeholder {
+        font-family: $bodyFont;
+        color: #a865c9;
+        opacity: 0.8;
+    }
+}
+
+button {
+    background-color: $eggshellTransparent;
+    border: none;
+    border-radius: 17px;
+    padding: 1% 5%;
+    color: $darkText;
+    font-family: $bodyFont;
+}
+
+// ===========================
+// Responses from API Styling
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    p {
+        font-size: .8rem;
+    }
+}
+
+h3 {
+    font-family: $secondaryHeading;
+    color: $eggshell;
+}
+
+// Pseudo code
+    // image max-width change to fit window (70%?)
+    // add background to li in order to contain all of the elements for each list item and make it clear which instructions go with what
+        // probably add border-radius & opacity with the rgb to match the buttons
+    // add a little margin to separate each li from one another
+
+
+
+// ========================
+// Footer
 
 
 footer {

@@ -181,7 +181,7 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
             // creating a template literal that takes the number from the key and appends it on to the end of the strMeasurement variable to dynamically pull the measurement result
             liElement.innerHTML = `
                 <img src = "${drinkImage}" alt="Cocktail photo of ${drinkName}" >
-                <h2>${drinkName}</h2>
+                <h3>${drinkName}</h3>
                 <p>${ingredientsAndMeasurementList}</p>
                 <p>${drinkInstructions}</p>
             `;
