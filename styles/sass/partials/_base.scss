@@ -1,4 +1,5 @@
-$eggshell: rgb(255, 245, 238);
+$eggshell: white;
+// $eggshell: rgb(255, 245, 238);
 $eggshellTransparent: rgba(255, 245, 238, 0.6);
 $darkText: #4B0082;
 $lightText: #a865c9;
@@ -112,7 +113,7 @@ input {
 
     &::placeholder {
         font-family: $bodyFont;
-        color: #a865c9;
+        color: $lightText;
         opacity: 0.8;
     }
 }
@@ -134,21 +135,50 @@ ul {
     margin: 0;
     padding: 0;
 
+    h3 {
+        margin-bottom: 5px;
+        font-family: $secondaryHeading;
+        // color: $eggshell;
+        color: $eggshell;
+        text-shadow: 0 0 10px $eggshell;
+    }
+
     p {
         font-size: .8rem;
+        margin: 2% 0;
+        color: $darkText
+    }
+
+    li {
+        background-color: $eggshellTransparent;
+        box-shadow: 0 0 10px $eggshellTransparent;
+        border-radius: 50px;
+        display: flex;
+        flex-direction: column;
+        padding: 5%;
+        margin: 20px 0;
+
+        img {
+            max-width: 70%;
+            margin: 0 auto;
+            border-radius: 100px;
+        }
+
+        h3,
+        p {
+            padding: 0 7%;
+        }
+
+        .emphasisText {
+            color: #820078
+        }
     }
 }
 
-h3 {
-    font-family: $secondaryHeading;
-    color: $eggshell;
-}
 
 // Pseudo code
-    // image max-width change to fit window (70%?)
-    // add background to li in order to contain all of the elements for each list item and make it clear which instructions go with what
-        // probably add border-radius & opacity with the rgb to match the buttons
-    // add a little margin to separate each li from one another
+    // add pointer to button to look more like a link
+        // add hover and focus states to buttons
 
 
 

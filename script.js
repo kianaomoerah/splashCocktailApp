@@ -182,8 +182,8 @@ cocktailsApp.getDrinkDetails = (cocktailObject) => {
             liElement.innerHTML = `
                 <img src = "${drinkImage}" alt="Cocktail photo of ${drinkName}" >
                 <h3>${drinkName}</h3>
-                <p>${ingredientsAndMeasurementList}</p>
-                <p>${drinkInstructions}</p>
+                <p><span class= "emphasisText">Ingredients:</span> ${ingredientsAndMeasurementList}</p>
+                <p><span class= "emphasisText">Instructions:</span> ${drinkInstructions}</p>
             `;
 
             ulElement.append(liElement);
