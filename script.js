@@ -39,7 +39,9 @@ cocktailsApp.displaySearchResults = function () {
             })
             .then((jsonData) => {
                 // cocktailsApp.displayDrinkDetails(jsonData);
-                // =========== CRUICAL - COMMENTED THIS OUT UNTIL check10 complete
+                // =========== CRUICAL - COMMENTED ABOVE OUT UNTIL check10 complete
+
+                // passing resulting Drinks object to check if it's more than 10 
                 cocktailsApp.check10(jsonData);
             })
             .catch((err) => {
@@ -61,7 +63,7 @@ cocktailsApp.drinkSearchError = function(error) {
     //use the DOM to create an element to create a list
     const liElement = document.createElement('li');
 
-    // creating a template literal for a simple error message
+    // creating a template literal for a  simple error message
     liElement.innerHTML = `
                 <h2>'No Drinks Found!'</h2>
                 <p>Please try entering another spirit </p>
@@ -79,26 +81,30 @@ cocktailsApp.drinkSearchError = function(error) {
     // choose 10 of those results
     // randomly pick those results
 
-cocktailsApp.check10 = function (drinks) {
+cocktailsApp.check10 = function (drinksObject) {
 
     // check if there are more than 10 
-        // CURRENTLY NOT WORKING - need to console.log the array and see what needs to be counted to isolate the correct amount
-    if (drinks > 10) {
+        // test for more than 10 = vodka
+        // test for less than 10 = whisky
+
+    console.log(drinksObject.drinks);
+    if (drinksObject.drinks.length > 10) {
         console.log('more than 10 drinks')
     } else {
         console.log('less than 10 drinks')
+        cocktailsApp.displayDrinkDetails(drinksObject);
     }
 
-    // filtering if there are more than 10 drinks -- need to move into if statement
-    // let arrayDrinks;
-    // let count = 1;
-    // drinks.filter( function(drink) {
-    //     if (count < 10) {
-    //         count++;
-    //         // need to pass it to new array
-    //         return true;
-    //     }
-    // } )
+    // filtering if there are more than 10 drinks -- need to move into if statement. might be able to use spread with this (...)
+    let arrayDrinks;
+    let count = 1;
+    drinks.filter( function(drink) {
+        if (count < 10) {
+            count++;
+            // need to pass it to new array
+            return true;
+        }
+    } )
 }
 
 // Taking the 'drinksData' ID list from the first fetch, to:
