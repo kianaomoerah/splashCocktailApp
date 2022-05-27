@@ -9,24 +9,37 @@
     <link rel="shortcut icon" href="#" />
 </head>
 <body>
-   <h1>Cocktail Generator App</h1>
-   <p>Search for any cocktail recipe by your chose of spirit!</p>
+    
+    <header>
+        <h1>Cocktail Generator App</h1>
+    </header>
 
-   <form action="#" class="recipeForm" name="recipeForm">
+    <main>
+        <section class="wrapper">
+            <p>Search for any cocktail recipe by your chose of spirit!</p>
 
-       <label for="spiritType">Enter your choice of spirit</label>
-       <input type="text" id="spiritChoice" name="spiritChoice">
+            <form action="#" class="recipeForm" name="recipeForm">
 
-       <button type="submit">Submit</button>
+            <label class= "sr-only" for="spiritType">Enter your choice of spirit</label>
+            <input type="text" id="spiritChoice" name="spiritChoice" placeholder="Enter your choice of spirit">
 
-   </form>
+            <button type="submit">Submit</button>
 
-   <button id = "surpriseMeBtn">Mix It Up!🍸</button>
+            </form>
+    
+            <p>... OR get a random cocktail generated instantly!</p>
+            <button id = "surpriseMeBtn">Mix It Up!🍸</button>
+        </section>
 
-   <ul class = "results">
-       
-   </ul>
-
+        <section class="wrapper">
+        <ul class = "results"></ul>
+        </section>
+    </main>
+    <footer>
+        <div class="wrapper">
+            <p>Created by Moriah & Kiana at <a href="https://junocollege.com">Juno College</a></p>
+        </div>
+    </footer>
     <script src="./script.js"></script>
 </body>
 </html>
