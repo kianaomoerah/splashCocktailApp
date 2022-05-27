@@ -46,6 +46,7 @@ cocktailsApp.displaySearchResults = function () {
             })
             .catch((err) => {
                 cocktailsApp.drinkSearchError(err);
+                console.log(err);
             })
     })
 
@@ -89,22 +90,21 @@ cocktailsApp.check10 = function (drinksObject) {
 
     console.log(drinksObject.drinks);
     if (drinksObject.drinks.length > 10) {
+
+        // reducing the array to the first 10 results
+        let testCount = 0;
+        const max10Result = [];
+        while(testCount < 10) {
+            max10Result.push(drinksObject.drinks[testCount]);
+            testCount++;
+        }
+
         console.log('more than 10 drinks')
+        // Add function to reduce the number of drinks displayed and randmoize
     } else {
         console.log('less than 10 drinks')
         cocktailsApp.displayDrinkDetails(drinksObject);
     }
-
-    // filtering if there are more than 10 drinks -- need to move into if statement. might be able to use spread with this (...)
-    let arrayDrinks;
-    let count = 1;
-    drinks.filter( function(drink) {
-        if (count < 10) {
-            count++;
-            // need to pass it to new array
-            return true;
-        }
-    } )
 }
 
 // Taking the 'drinksData' ID list from the first fetch, to:
