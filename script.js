@@ -84,26 +84,20 @@ cocktailsApp.drinkSearchError = function(error) {
 
 cocktailsApp.check10 = function (drinksObject) {
 
-    // check if there are more than 10 
-        // test for more than 10 = vodka
-        // test for less than 10 = whisky
-
-    console.log(drinksObject.drinks);
     if (drinksObject.drinks.length > 10) {
 
-        // reducing the array to the first 10 results
-        let testCount = 0;
+        let count = 0;
         const max10Result = [];
-        while(testCount < 10) {
-            max10Result.push(drinksObject.drinks[testCount]);
-            testCount++;
+        while(count < 10) {
+            max10Result.push(drinksObject.drinks[count]);
+            count++;
         }
 
-        console.log('more than 10 drinks')
+        cocktailsApp.displayDrinkDetails(max10Result);
         // Add function to reduce the number of drinks displayed and randmoize
     } else {
-        console.log('less than 10 drinks')
-        cocktailsApp.displayDrinkDetails(drinksObject);
+
+        cocktailsApp.displayDrinkDetails(drinksObject.drinks);
     }
 }
 
@@ -111,7 +105,7 @@ cocktailsApp.check10 = function (drinksObject) {
     // create individual new links using the base API + the IDs
     // then fetching the information from those newly created links for the individual drink details information
     // passing the individual drink details information into the next function for isolating and appending the information we want to display
-cocktailsApp.displayDrinkDetails = function (drinksData) {
+cocktailsApp.displayDrinkDetails = function (drinksArray) {
 
     // revisit making this a seperate function:
       //query for the UL
@@ -119,9 +113,6 @@ cocktailsApp.displayDrinkDetails = function (drinksData) {
 
         //clear the UL before adding a new cocktail
         ulElement.innerHTML = '';
-
-    //getting the drinks array
-    let drinksArray = drinksData.drinks;
 
     // take the ID of the drink
     drinksArray.forEach( function(drink) {
@@ -217,6 +208,7 @@ cocktailsApp.displayRandomCocktail = ( ) => {
         fetch(cocktailsApp.apiURLRandom)
         .then((response) => { return response.json(); })
         .then((randomDrinkObject) => {
+
         cocktailsApp.getDrinkDetails(randomDrinkObject);
             
         })
