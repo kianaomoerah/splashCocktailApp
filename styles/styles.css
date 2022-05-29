@@ -371,7 +371,7 @@ input::placeholder {
   opacity: 0.8;
 }
 
-button {
+button, .topAnchor {
   background-color: rgba(255, 245, 238, 0.6);
   border: none;
   border-radius: 17px;
@@ -425,12 +425,23 @@ ul li .emphasisText {
   color: #820078;
 }
 
+.topAnchor {
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  text-decoration: none;
+  font-size: 1.2rem;
+  z-index: 10;
+}
+
 .displayNone {
   display: none;
 }
 
 .displayBtn {
   display: block;
+  margin: 2%;
+  font-size: 0.8rem;
 }
 
 footer {

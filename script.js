@@ -3,21 +3,22 @@
 const cocktailsApp = {};
 
 //save relevant API information  
-
 cocktailsApp.apiURLRandom = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 cocktailsApp.apiDrinkIdList = "https://www.thecocktaildb.com/api/json/v1/1/filter.php";
 // should be ex. i=vodka
 cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?"; // should be ex. i=11007 
 
 
-//Query DOM for inputs -- may need to move them down
+// Query DOM for inputs
 const form = document.querySelector('form');
 // Query DOM for gimme more button
 const moreBtn = document.querySelector('.moreBtn');
+// query DOM for anchor allowing user to go back to the top
+const topAnchor = document.querySelector('.topAnchor');
 
+// For checking counts across functions
 // Empty holder for results from the initial fetch
 cocktailsApp.currentResults = [];
-
 // For checking how many results displayed for search inside the browser
 cocktailsApp.currentCount = 0;
 
@@ -27,6 +28,7 @@ cocktailsApp.init = () => {
     cocktailsApp.loadMoreDrinks();
 };
 
+
 // getting the spirit search results ID's - these will then be passed to the getDrinkDetails function to get the details of each drink
 cocktailsApp.displaySearchResults = function () {
     form.addEventListener('submit', function (event) {
@@ -35,8 +37,9 @@ cocktailsApp.displaySearchResults = function () {
         event.preventDefault();
         cocktailsApp.currentCount = 0;
         cocktailsApp.currentResults = [];
-
-// ** TO DO when someone makes a new search, the count needs to get cleared
+        topAnchor.classList.add('displayNone');
+        moreBtn.classList.add('displayNone');
+        moreBtn.classList.remove('displayBtn');
 
         const urlSpirit = new URL(cocktailsApp.apiDrinkIdList);
         const inputElement = document.getElementById('spiritChoice');
@@ -69,7 +72,7 @@ cocktailsApp.displaySearchResults = function () {
 
 // Error function to run any time someone puts an invalid query in the input of the search
 cocktailsApp.drinkSearchError = function(error) {
-    // revisit making this a seperate function:
+
     //query for the UL
     const ulElement = document.querySelector('ul');
 
@@ -81,21 +84,18 @@ cocktailsApp.drinkSearchError = function(error) {
 
     // creating a template literal for a  simple error message
     liElement.innerHTML = `
-                <h2>'No Drinks Found!'</h2>
-                <p>Please try entering another spirit </p>
+                <h3>Oops! Please try searching again.</h3>
+                <p>No drinks found.</p>
             `;
 
     ulElement.append(liElement);
 
 }
 
-// Using the first API, have a maximum of 10 resuls
-    // Check if there are more than 10
-    // if there are less than 10
-    // pass the API results into the detDrinkDetails
-    // if there are more than 10
-    // choose 10 of those results
-    // randomly pick those results
+// Using the first API, have a maximum of 10 results shown initially
+    // if there are less than 10, pass the API results into the detDrinkDetails
+    // if there are more than 10, get the first ten results
+        // add the button to display more if the user wants
 
 cocktailsApp.check10 = function (drinksObject) {
 
@@ -106,9 +106,10 @@ cocktailsApp.check10 = function (drinksObject) {
         // display the first 10 results
         cocktailsApp.getDrinkDetails(drinksObject.slice(0, 10));
 
-        //toggle display button to visible
+        //toggle 'display more' button to visible
         moreBtn.classList.remove('displayNone');
         moreBtn.classList.add('displayBtn');
+        topAnchor.classList.remove('displayNone');
 
     } else {
         cocktailsApp.getDrinkDetails(drinksObject);
@@ -116,7 +117,7 @@ cocktailsApp.check10 = function (drinksObject) {
 }
 
 
-// Add Event Listener to More Button to display more items from longer arrays 
+// Add Event Listener to 'Display More' Button to display more items from longer arrays 
 cocktailsApp.loadMoreDrinks = function() {
     moreBtn.addEventListener('click', function() {
         console.log('clicked')
