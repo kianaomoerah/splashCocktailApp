@@ -125,6 +125,7 @@ button {
     padding: 1% 5%;
     color: $darkText;
     font-family: $bodyFont;
+    cursor: pointer;
 }
 
 // ===========================
@@ -173,6 +174,15 @@ ul {
             color: #820078
         }
     }
+}
+
+// for toggling more button display
+.displayNone {
+    display: none;
+}
+
+.displayBtn {
+    display:block;
 }
 
 

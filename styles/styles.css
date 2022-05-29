@@ -378,6 +378,7 @@ button {
   padding: 1% 5%;
   color: #4B0082;
   font-family: "Biryani", sans-serif;
+  cursor: pointer;
 }
 
 ul {
@@ -422,6 +423,14 @@ ul li p {
 }
 ul li .emphasisText {
   color: #820078;
+}
+
+.displayNone {
+  display: none;
+}
+
+.displayBtn {
+  display: block;
 }
 
 footer {
