@@ -59,7 +59,6 @@ cocktailsApp.displaySearchResults = function () {
             })
             .catch((err) => {
                 cocktailsApp.drinkSearchError(err);
-                console.log(err);
             })
     })
 
@@ -107,7 +106,7 @@ cocktailsApp.check10 = function (drinksObject) {
 // Add Event Listener to 'Display More' Button to display more items
 cocktailsApp.loadMoreDrinks = function() {
     moreBtn.addEventListener('click', function() {
-        console.log('clicked')
+
         if (cocktailsApp.currentResults.length - cocktailsApp.currentCount > 10) {
 
             // passing to getDrinkDetails in order to append new batch of 10 recipes to existing results on page
@@ -129,7 +128,6 @@ cocktailsApp.loadMoreDrinks = function() {
     // passing the individual drink details information into the next function for isolating and appending the information we want to display
     // setting a default append value so it clears unless someone asks for more
 cocktailsApp.getDrinkDetails = function (drinksArray, append = false) {
-    console.log(drinksArray);
 
         if(!append) {
             ulElement.innerHTML = '';
@@ -211,7 +209,7 @@ cocktailsApp.displayRandomCocktail = ( ) => {
     surpriseMeBtn.addEventListener('click', function() {
 
         ulElement.innerHTML = '';
-        
+
         moreBtn.classList.remove('displayBtn');
         moreBtn.classList.add('displayNone');
 
