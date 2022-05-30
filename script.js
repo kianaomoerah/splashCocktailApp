@@ -3,26 +3,44 @@
 const cocktailsApp = {};
 
 //save relevant API information  
-
 cocktailsApp.apiURLRandom = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 cocktailsApp.apiDrinkIdList = "https://www.thecocktaildb.com/api/json/v1/1/filter.php";
 // should be ex. i=vodka
 cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?"; // should be ex. i=11007 
 
 
-//Query DOM for inputs -- may need to move them down
+// Query DOM for inputs
 const form = document.querySelector('form');
+// Query DOM for gimme more button
+const moreBtn = document.querySelector('.moreBtn');
+// query DOM for anchor allowing user to go back to the top
+const topAnchor = document.querySelector('.topAnchor');
 
+// For checking counts across functions
+// Empty holder for results from the initial fetch
+cocktailsApp.currentResults = [];
+// For checking how many results displayed for search inside the browser
+cocktailsApp.currentCount = 0;
 
 cocktailsApp.init = () => {
     cocktailsApp.displayRandomCocktail();
     cocktailsApp.displaySearchResults();
+    cocktailsApp.loadMoreDrinks();
 };
 
-// getting the spirit search results ID's - these will then be passed to the displayDrinkDetails function to get the details of each drink
+
+// getting the spirit search results ID's - these will then be passed to the getDrinkDetails function to get the details of each drink
 cocktailsApp.displaySearchResults = function () {
     form.addEventListener('submit', function (event) {
+        
+        // clearing any defaults or old search info 
         event.preventDefault();
+        cocktailsApp.currentCount = 0;
+        cocktailsApp.currentResults = [];
+        topAnchor.classList.add('displayNone');
+        moreBtn.classList.add('displayNone');
+        moreBtn.classList.remove('displayBtn');
+
         const urlSpirit = new URL(cocktailsApp.apiDrinkIdList);
         const inputElement = document.getElementById('spiritChoice');
         urlSpirit.search = new URLSearchParams({
@@ -34,15 +52,15 @@ cocktailsApp.displaySearchResults = function () {
                 if (res.ok) {
                     return res.json();
                 } else {
-                    throw new Error('Other developers see this');
+                    throw new Error('User entered invalid ingredient');
                 }
             })
             .then((jsonData) => {
-                // cocktailsApp.displayDrinkDetails(jsonData);
-                // =========== CRUICAL - COMMENTED ABOVE OUT UNTIL check10 complete
 
-                // passing resulting Drinks object to check if it's more than 10 
-                cocktailsApp.check10(jsonData);
+                // putting the fetched data (had to be spread + accessed one level lower in 'drinks') into an object accessible outside of this function
+                cocktailsApp.currentResults.push(...jsonData.drinks);
+                // passing resulting object to check if it's more than 10 
+                cocktailsApp.check10(cocktailsApp.currentResults);
             })
             .catch((err) => {
                 cocktailsApp.drinkSearchError(err);
@@ -54,7 +72,7 @@ cocktailsApp.displaySearchResults = function () {
 
 // Error function to run any time someone puts an invalid query in the input of the search
 cocktailsApp.drinkSearchError = function(error) {
-    // revisit making this a seperate function:
+
     //query for the UL
     const ulElement = document.querySelector('ul');
 
@@ -66,53 +84,73 @@ cocktailsApp.drinkSearchError = function(error) {
 
     // creating a template literal for a  simple error message
     liElement.innerHTML = `
-                <h2>'No Drinks Found!'</h2>
-                <p>Please try entering another spirit </p>
+                <h3>Oops! Please try searching again.</h3>
+                <p>No drinks found.</p>
             `;
 
     ulElement.append(liElement);
 
 }
 
-// Using the first API, have a maximum of 10 resuls
-    // Check if there are more than 10
-    // if there are less than 10
-    // pass the API results into the detDrinkDetails
-    // if there are more than 10
-    // choose 10 of those results
-    // randomly pick those results
+// Using the first API, have a maximum of 10 results shown initially
+    // if there are less than 10, pass the API results into the detDrinkDetails
+    // if there are more than 10, get the first ten results
+        // add the button to display more if the user wants
 
 cocktailsApp.check10 = function (drinksObject) {
 
-    if (drinksObject.drinks.length > 10) {
+    if (drinksObject.length > 10) {
 
-        let count = 0;
-        const max10Result = [];
-        while(count < 10) {
-            max10Result.push(drinksObject.drinks[count]);
-            count++;
-        }
+        cocktailsApp.currentCount = 10;
 
-        cocktailsApp.displayDrinkDetails(max10Result);
-        // Add function to reduce the number of drinks displayed and randmoize
+        // display the first 10 results
+        cocktailsApp.getDrinkDetails(drinksObject.slice(0, 10));
+
+        //toggle 'display more' button to visible
+        moreBtn.classList.remove('displayNone');
+        moreBtn.classList.add('displayBtn');
+        topAnchor.classList.remove('displayNone');
+
     } else {
-
-        cocktailsApp.displayDrinkDetails(drinksObject.drinks);
+        cocktailsApp.getDrinkDetails(drinksObject);
     }
 }
+
+
+// Add Event Listener to 'Display More' Button to display more items from longer arrays 
+cocktailsApp.loadMoreDrinks = function() {
+    moreBtn.addEventListener('click', function() {
+        console.log('clicked')
+        if (cocktailsApp.currentResults.length - cocktailsApp.currentCount > 10) {
+
+            // setting the new length to grab in the array based on what # the browser is currently displaying, then stating that it should append this to the existing results with 'true'
+            cocktailsApp.getDrinkDetails(cocktailsApp.currentResults.slice(cocktailsApp.currentCount, cocktailsApp.currentCount + 10), true);
+            cocktailsApp.currentCount += 10;
+        } else {
+            //toggle display button to invisible
+            moreBtn.classList.remove('displayBtn');
+            moreBtn.classList.add('displayNone');
+        }
+    });
+}
+
 
 // Taking the 'drinksData' ID list from the first fetch, to:
     // create individual new links using the base API + the IDs
     // then fetching the information from those newly created links for the individual drink details information
     // passing the individual drink details information into the next function for isolating and appending the information we want to display
-cocktailsApp.displayDrinkDetails = function (drinksArray) {
+    // setting a default append value so it clears unless someone asks for more
+cocktailsApp.getDrinkDetails = function (drinksArray, append = false) {
+    console.log(drinksArray);
 
     // revisit making this a seperate function:
       //query for the UL
         const ulElement = document.querySelector('ul');
 
         //clear the UL before adding a new cocktail
-        ulElement.innerHTML = '';
+        if(!append) {
+            ulElement.innerHTML = '';
+        }
 
     // take the ID of the drink
     drinksArray.forEach( function(drink) {
@@ -130,7 +168,7 @@ cocktailsApp.displayDrinkDetails = function (drinksArray) {
             .then(results => {
                 return results.json();
             }).then(data => {
-                cocktailsApp.getDrinkDetails(data);
+                cocktailsApp.displayDrinkDetails(data);
                 
         })
     });
@@ -140,7 +178,7 @@ cocktailsApp.displayDrinkDetails = function (drinksArray) {
 
 
 // Getting the details of each individual drink from the second API and displaying the name, image, and recipe
-cocktailsApp.getDrinkDetails = (cocktailObject) => {
+cocktailsApp.displayDrinkDetails = (cocktailObject) => {
     const ulElement = document.querySelector('ul');
     const drinkName = cocktailObject.drinks[0].strDrink
     const drinkInstructions = cocktailObject.drinks[0].strInstructions
@@ -209,7 +247,7 @@ cocktailsApp.displayRandomCocktail = ( ) => {
         .then((response) => { return response.json(); })
         .then((randomDrinkObject) => {
 
-        cocktailsApp.getDrinkDetails(randomDrinkObject);
+        cocktailsApp.displayDrinkDetails(randomDrinkObject);
             
         })
     })
