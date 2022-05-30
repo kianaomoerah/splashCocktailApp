@@ -5,21 +5,17 @@ const cocktailsApp = {};
 //save relevant API information  
 cocktailsApp.apiURLRandom = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 cocktailsApp.apiDrinkIdList = "https://www.thecocktaildb.com/api/json/v1/1/filter.php";
-// should be ex. i=vodka
-cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?"; // should be ex. i=11007 
+cocktailsApp.apiDrinkDetails = "https://thecocktaildb.com/api/json/v1/1/lookup.php?";
 
 
-// Query DOM for inputs
+// Query DOM
 const form = document.querySelector('form');
-// Query DOM for gimme more button
 const moreBtn = document.querySelector('.moreBtn');
-// query DOM for anchor allowing user to go back to the top
 const topAnchor = document.querySelector('.topAnchor');
+const ulElement = document.querySelector('ul');
 
-// For checking counts across functions
-// Empty holder for results from the initial fetch
+// For checking counts/array across functions
 cocktailsApp.currentResults = [];
-// For checking how many results displayed for search inside the browser
 cocktailsApp.currentCount = 0;
 
 cocktailsApp.init = () => {
@@ -29,11 +25,10 @@ cocktailsApp.init = () => {
 };
 
 
-// getting the spirit search results ID's - these will then be passed to the getDrinkDetails function to get the details of each drink
+// getting the ingredient search results ID's
 cocktailsApp.displaySearchResults = function () {
     form.addEventListener('submit', function (event) {
-        
-        // clearing any defaults or old search info 
+         
         event.preventDefault();
         cocktailsApp.currentCount = 0;
         cocktailsApp.currentResults = [];
@@ -57,7 +52,7 @@ cocktailsApp.displaySearchResults = function () {
             })
             .then((jsonData) => {
 
-                // putting the fetched data (had to be spread + accessed one level lower in 'drinks') into an object accessible outside of this function
+                // putting the fetched data into an object accessible outside of this function
                 cocktailsApp.currentResults.push(...jsonData.drinks);
                 // passing resulting object to check if it's more than 10 
                 cocktailsApp.check10(cocktailsApp.currentResults);
@@ -70,19 +65,15 @@ cocktailsApp.displaySearchResults = function () {
 
 }
 
+
 // Error function to run any time someone puts an invalid query in the input of the search
 cocktailsApp.drinkSearchError = function(error) {
 
-    //query for the UL
-    const ulElement = document.querySelector('ul');
 
-    //clear the UL before adding a new cocktail
     ulElement.innerHTML = '';
 
-    //use the DOM to create an element to create a list
     const liElement = document.createElement('li');
 
-    // creating a template literal for a  simple error message
     liElement.innerHTML = `
                 <h3 class= "centerText" >Oops! Please try searching again.</h3>
                 <p class= "centerText" >No drinks found.</p>
@@ -93,21 +84,16 @@ cocktailsApp.drinkSearchError = function(error) {
 
 }
 
-// Using the first API, have a maximum of 10 results shown initially
-    // if there are less than 10, pass the API results into the detDrinkDetails
-    // if there are more than 10, get the first ten results
-        // add the button to display more if the user wants
 
+// Using the first API, have a maximum of 10 results shown initially, add the button to display more if the user wants
 cocktailsApp.check10 = function (drinksObject) {
 
     if (drinksObject.length > 10) {
 
         cocktailsApp.currentCount = 10;
 
-        // display the first 10 results
         cocktailsApp.getDrinkDetails(drinksObject.slice(0, 10));
 
-        //toggle 'display more' button to visible
         moreBtn.classList.remove('displayNone');
         moreBtn.classList.add('displayBtn');
         topAnchor.classList.remove('displayNone');
@@ -118,20 +104,19 @@ cocktailsApp.check10 = function (drinksObject) {
 }
 
 
-// Add Event Listener to 'Display More' Button to display more items from longer arrays 
+// Add Event Listener to 'Display More' Button to display more items
 cocktailsApp.loadMoreDrinks = function() {
     moreBtn.addEventListener('click', function() {
         console.log('clicked')
         if (cocktailsApp.currentResults.length - cocktailsApp.currentCount > 10) {
 
-            // setting the new length to grab in the array based on what # the browser is currently displaying, then stating that it should append this to the existing results with 'true'
+            // passing to getDrinkDetails in order to append new batch of 10 recipes to existing results on page
             cocktailsApp.getDrinkDetails(cocktailsApp.currentResults.slice(cocktailsApp.currentCount, cocktailsApp.currentCount + 10), true);
             cocktailsApp.currentCount += 10;
         } else {
-            //toggle display button to invisible
+            // passing to getDrinkDetails in order to append new batch of 10 recipes to existing results on page, and removing display more button as no more results exist
             moreBtn.classList.remove('displayBtn');
             moreBtn.classList.add('displayNone');
-            // adding remaining cocktails
             cocktailsApp.getDrinkDetails(cocktailsApp.currentResults.slice(cocktailsApp.currentCount, cocktailsApp.currentCount + 10), true);
         }
     });
@@ -146,11 +131,6 @@ cocktailsApp.loadMoreDrinks = function() {
 cocktailsApp.getDrinkDetails = function (drinksArray, append = false) {
     console.log(drinksArray);
 
-    // revisit making this a seperate function:
-      //query for the UL
-        const ulElement = document.querySelector('ul');
-
-        //clear the UL before adding a new cocktail
         if(!append) {
             ulElement.innerHTML = '';
         }
@@ -178,31 +158,22 @@ cocktailsApp.getDrinkDetails = function (drinksArray, append = false) {
 }
 
 
-
-
 // Getting the details of each individual drink from the second API and displaying the name, image, and recipe
 cocktailsApp.displayDrinkDetails = (cocktailObject) => {
-    const ulElement = document.querySelector('ul');
     const drinkName = cocktailObject.drinks[0].strDrink
     const drinkInstructions = cocktailObject.drinks[0].strInstructions
     const drinkImage = cocktailObject.drinks[0].strDrinkThumb
     
     const drinkObject = cocktailObject.drinks[0]
   
-    //for storing the ingredients and measurements list
     const ingredientsAndMeasurementList = [];
 
-    // isolate strIngredient items in the object that have content & matches them with their measurements
     for (let [key, value] of Object.entries(drinkObject)) {
         if ( key.includes("strIngredient") && value ) {
 
-            //save key number in variable
+            //save key number in variable, get back strMeasurement[number], get value of measurement
             const ingredientKey = key.slice(13);
-
-            //get back strMeasurement[number] to match ingredient
             const measurement = `strMeasure` + ingredientKey;
-
-            // get the value of that measurement (ex. 2 oz)
             const valueOfMeasurement = drinkObject[measurement];
 
             // Check if there is a measurement value and add it if there ione
@@ -216,10 +187,11 @@ cocktailsApp.displayDrinkDetails = (cocktailObject) => {
 
                 }
             }
-            //use the DOM to create an element to create a list
+            
+            // creating a template literal that takes the number from the key and appends it on to the end of the strMeasurement variable to dynamically pull the measurement result
+
             const liElement = document.createElement('li');
 
-            // creating a template literal that takes the number from the key and appends it on to the end of the strMeasurement variable to dynamically pull the measurement result
             liElement.innerHTML = `
                 <img src = "${drinkImage}" alt="Cocktail photo of ${drinkName}" >
                 <h3>${drinkName}</h3>
@@ -232,19 +204,16 @@ cocktailsApp.displayDrinkDetails = (cocktailObject) => {
 }
 
 
-
-
-// Listening for a click on the 'surprise me' button in order to fetch a random drink from the API
+// supriseMeBtn to fetch a random drink from the API
 cocktailsApp.displayRandomCocktail = ( ) => {
     const surpriseMeBtn = document.querySelector('#surpriseMeBtn');
 
     surpriseMeBtn.addEventListener('click', function() {
 
-         //query for the UL
-        const ulElement = document.querySelector('ul');
-
-        //clear the UL before adding a new cocktail
         ulElement.innerHTML = '';
+        
+        moreBtn.classList.remove('displayBtn');
+        moreBtn.classList.add('displayNone');
 
         fetch(cocktailsApp.apiURLRandom)
         .then((response) => { return response.json(); })
@@ -258,70 +227,6 @@ cocktailsApp.displayRandomCocktail = ( ) => {
 
 
 cocktailsApp.init ();
-
-//======================================================
-
-// OLD CONTENT (GOOD IDEAS)
-
-//element.slice (13) -- so long as we don't include an end, it should give us what's left
-
-            // with null values removed
-            // const drinkIngredientsObject = {}
-            // const entries = Object.entries(drinkObject)
-            // for (const [key,value] of entries) {
-            //     if(value) {
-            //         drinkIngredientsObject[key] = value
-            //     }
-            // }
-            // console.log(drinkIngredientsObject)
-
-
-            // const drinkIngredientsArray = object.entries(drinkIngredients)
-            // console.log(drinkIngredientsArray);
-
-            // const drinkIngredientsArray = Object.keys(drinkIngredients).filter((key) => key.includes("strIngredient")).reduce((obj, key) => {
-            //     return Object.assign(obj, {
-            //         [key]: drinkIngredients[key]
-            //     });
-            // });
-            // console.log(drinkIngredientsArray);
-            
-            // drinkIngredients.filter((ingredient) => {
-            //     if(ingredient) {return true;}
-            // })
-
-
-
-//TEST CONTENT
-// cocktailsApp.getSearchedCocktails = () => {
-//     // use the url constructor to specify the parameters to include in the API
-//     const url = new URL(cocktailsApp.apiDrinkIdList);
-//     url.search = new URLSearchParams({
-//         i: 'vodka' //just putting in example for the sake of proving the API call is working - this would need to be generated dynamically using the prompt from the user in the final product
-//     })
-//     console.log(url); //shows us the created url is what we want
-    
-//     fetch(url)
-//     .then((response) => { return response.json();})
-//     .then((jsonResponse) => {
-//         console.log(jsonResponse); //should display all drinks with vodka
-//     })
-// }
-
-
-
-
-// ID Example
-// cocktailsApp.getCocktailDetails = () => {
-//     fetch(cocktailsApp.apiDrinkDetails)
-//     .then((response) => {
-//         return response.json();
-//     })
-//     .then((jsonResponse) => {
-//         console.log(jsonResponse);
-
-//     })
-// }
 
 
 
