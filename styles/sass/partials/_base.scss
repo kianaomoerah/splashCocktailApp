@@ -1,8 +1,9 @@
-$eggshell: white;
+$white: white;
 // $eggshell: rgb(255, 245, 238);
 $eggshellTransparent: rgba(255, 245, 238, 0.6);
 $darkText: #4B0082;
 $lightText: #a865c9;
+$darkPink: #820078;
 
 html, 
 body {
@@ -33,17 +34,17 @@ main {
 
 h1 {
     font-family: $titleFont;
-    color: $eggshell;
+    color: $white;
     font-size: 2.4rem;
     text-align: center;
     text-transform: uppercase;
     text-shadow: #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
-    padding-top: 10%;
+    padding-top: 50px;
 
 }
 
 h2 {
-    color: $eggshell;
+    color: $white;
     font-size: 1.9rem;
     text-align: center;
     font-family: $headingFont;
@@ -69,7 +70,7 @@ h2 {
 
 p {
     font-family: $bodyFont;
-    color: $eggshell;
+    color: $white;
     font-size: 1rem;
 }
 
@@ -107,7 +108,7 @@ input {
     border: none;
     border-radius: 17px;
     padding-left: 2%;
-    background-color: $eggshell;
+    background-color: $white;
     width: 400px;
     font-family: $bodyFont;
 
@@ -125,7 +126,16 @@ button, .topAnchor {
     padding: 1% 5%;
     color: $darkText;
     font-family: $bodyFont;
+}
+
+button:hover, 
+button:focus-visible {
+    transition: all .5s ease;
+    color: $white;
+    background-color: $darkText;
+    border: 1px solid white;
     cursor: pointer;
+
 }
 
 // ===========================
@@ -135,14 +145,6 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-
-    h3 {
-        margin-bottom: 5px;
-        font-family: $secondaryHeading;
-        // color: $eggshell;
-        color: $eggshell;
-        text-shadow: 0 0 10px $eggshell;
-    }
 
     p {
         font-size: .8rem;
@@ -157,7 +159,14 @@ ul {
         display: flex;
         flex-direction: column;
         padding: 5%;
-        margin: 20px 0;
+        margin: 20px auto;
+
+        h3 {
+            margin-bottom: 5px;
+            font-family: $secondaryHeading;
+            color: $white;
+            text-shadow: 0 0 10px $white;
+        }
 
         img {
             max-width: 70%;
@@ -171,7 +180,11 @@ ul {
         }
 
         .emphasisText {
-            color: #820078
+            color: $darkPink
+        }
+
+        .centerText {
+            text-align: center;
         }
     }
 }

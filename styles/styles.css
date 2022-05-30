@@ -273,7 +273,7 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   text-shadow: #FFF 0px 0px 15px, #FF2D95 0px 0px 20px, #FF2D95 0px 0px 30px, #FF2D95 0px 0px 40px, #FF2D95 0px 0px 50px, #FF2D95 0px 0px 75px;
-  padding-top: 10%;
+  padding-top: 50px;
 }
 
 h2 {
@@ -378,6 +378,15 @@ button, .topAnchor {
   padding: 1% 5%;
   color: #4B0082;
   font-family: "Biryani", sans-serif;
+}
+
+button:hover,
+button:focus-visible {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  color: white;
+  background-color: #4B0082;
+  border: 1px solid white;
   cursor: pointer;
 }
 
@@ -385,12 +394,6 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-ul h3 {
-  margin-bottom: 5px;
-  font-family: "Lora", serif;
-  color: white;
-  text-shadow: 0 0 10px white;
 }
 ul p {
   font-size: 0.8rem;
@@ -410,7 +413,13 @@ ul li {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 5%;
-  margin: 20px 0;
+  margin: 20px auto;
+}
+ul li h3 {
+  margin-bottom: 5px;
+  font-family: "Lora", serif;
+  color: white;
+  text-shadow: 0 0 10px white;
 }
 ul li img {
   max-width: 70%;
@@ -423,6 +432,9 @@ ul li p {
 }
 ul li .emphasisText {
   color: #820078;
+}
+ul li .centerText {
+  text-align: center;
 }
 
 .topAnchor {
@@ -472,6 +484,7 @@ footer a {
   }
   ul li {
     width: calc(50% - 10px);
+    margin: 20px auto;
   }
 }
 @media (max-width: 507px) {

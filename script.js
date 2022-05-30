@@ -84,8 +84,9 @@ cocktailsApp.drinkSearchError = function(error) {
 
     // creating a template literal for a  simple error message
     liElement.innerHTML = `
-                <h3>Oops! Please try searching again.</h3>
-                <p>No drinks found.</p>
+                <h3 class= "centerText" >Oops! Please try searching again.</h3>
+                <p class= "centerText" >No drinks found.</p>
+                <img src="./assets/cocktails.png" alt="illustration of blue cocktail with purple paper umbrella">
             `;
 
     ulElement.append(liElement);
@@ -130,6 +131,8 @@ cocktailsApp.loadMoreDrinks = function() {
             //toggle display button to invisible
             moreBtn.classList.remove('displayBtn');
             moreBtn.classList.add('displayNone');
+            // adding remaining cocktails
+            cocktailsApp.getDrinkDetails(cocktailsApp.currentResults.slice(cocktailsApp.currentCount, cocktailsApp.currentCount + 10), true);
         }
     });
 }
