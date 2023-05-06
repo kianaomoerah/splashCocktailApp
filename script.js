@@ -74,9 +74,8 @@ cocktailsApp.drinkSearchError = function(error) {
     const liElement = document.createElement('li');
 
     liElement.innerHTML = `
-                <h3 class= "centerText" >Oops! Please try searching again.</h3>
-                <p class= "centerText" >No drinks found.</p>
-                <img src="./assets/cocktails.png" alt="illustration of blue cocktail with purple paper umbrella">
+                <h3>No drinks found</h3>
+                <p>Please try searching again!</p>
             `;
 
     ulElement.append(liElement);

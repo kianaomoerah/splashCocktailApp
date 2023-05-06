@@ -4,44 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocktail Generator</title>
+    <title>Splash</title>
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="shortcut icon" href="#" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍸</text></svg>">
 </head>
 <body>
     
     <header>
-        <h1>Sip Me Baby One More Time</h1>
-        <h2 id="topPage">Cocktail Generator</h2>
+        <h1>Splash</h1>
+        <h2 id="topPage">The best way to find amazing Cocktail recipes</h2>
     </header>
 
     <main>
         <section class="submission wrapper">
-            <p>Search for any cocktail recipe by your choice of ingredient:</p>
+            <p>Search by your choice of ingredient:</p>
 
             <form action="#" class="recipeForm" name="recipeForm">
                 
-                <label class= "sr-only" for="spiritType">Enter your choice of spirit</label>
-                <input type="text" id="spiritChoice" name="spiritChoice" placeholder="Enter your choice of spirit">
+                <label class= "sr-only" for="spiritType">Enter ingredient or spirit</label>
+                <input type="text" id="spiritChoice" name="spiritChoice" placeholder="Enter ingredient or spirit">
 
-                <button type="submit">Submit</button>
+                <button class="submit" type="submit">Submit</button>
 
             </form>
     
-            <p>... OR get a random cocktail generated instantly!</p>
-            <button class = "surpriseMeBtn" id = "surpriseMeBtn">Mix It Up!🍸</button>
+            <p> or get a random cocktail generated instantly!</p>
+            <button class="surpriseMeBtn" id = "surpriseMeBtn">Surprise Me!</button>
         </section>
 
         <section class="wrapper">
         <ul class = "results"></ul>
-        <button class = "moreBtn displayNone">Gimme More (Cocktails)</button>
-        <a class = "topAnchor displayNone" href="#topPage" alt = "back to top of page"><i class="fas fa-arrow-up"></i></a>
+        <button class = "moreBtn displayNone">More Cocktails!</button>
+        <a class = "topAnchor displayNone" href="#topPage" alt = "back to top of page">^</a>
         </section>
     </main>
     <footer>
         <div class="wrapper">
-            <p>Created by Moriah & Kiana at <a href="https://junocollege.com">Juno College</a></p>
+            <p>Created by Kiana & Moriah at <a href="https://junocollege.com">Juno College</a></p>
         </div>
     </footer>
     <script src="https://kit.fontawesome.com/ff7d4df1e7.js" crossorigin="anonymous"></script>
